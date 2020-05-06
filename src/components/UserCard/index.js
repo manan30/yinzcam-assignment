@@ -1,17 +1,16 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React from 'react';
 
 function UserCard({ username, avatarUrl }) {
   return (
-    <Link to={`/${username}`} className='user-card'>
+    <>
       <img
         className='user-profile-image'
         src={avatarUrl}
-        alt={`${username}'s profile`}
+        alt={`${username}'s avatar`}
       />
       <span>{username}</span>
-    </Link>
+    </>
   );
 }
 

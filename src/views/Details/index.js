@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchRepositories, fetchFollowers } from '../api/index';
+import { fetchRepositories, fetchFollowers } from '../../api/index';
+import Tabs from '../../components/Tabs';
+import './details.css';
 
 function Details() {
   const { name } = useParams();
@@ -28,7 +30,25 @@ function Details() {
     })();
   }, [name]);
 
-  return <div />;
+  return (
+    <div className='details-container'>
+      <h2 className='details-header'>User details for {name} </h2>
+      <div className='details-tabs-container'>
+        <Tabs
+          tabs={[
+            {
+              tag: 'Repositories',
+              component: <div style={{ background: 'blue' }} />,
+            },
+            {
+              tag: 'Followers',
+              component: <div style={{ background: 'green' }} />,
+            },
+          ]}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default Details;

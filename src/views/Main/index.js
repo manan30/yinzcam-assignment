@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchUsers } from '../api';
-import UserCard from '../components/UserCard';
+import { fetchUsers } from '../../api';
+import UserCard from '../../components/UserCard';
 
 function Main() {
   const [users, setUsers] = useState([]);
@@ -27,11 +27,13 @@ function Main() {
           {users.map((user, idx) => {
             const key = idx;
             return (
-              <UserCard
-                key={key}
-                username={user.login}
-                avatarUrl={user.avatar_url}
-              />
+              <Link to={`/${user.login}`} className='user-card'>
+                <UserCard
+                  key={key}
+                  username={user.login}
+                  avatarUrl={user.avatar_url}
+                />
+              </Link>
             );
           })}
         </div>

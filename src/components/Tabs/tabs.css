@@ -1,0 +1,38 @@
+.tab-layout-container {
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+  width: 100%;
+}
+
+.tab-panel-container {
+  display: flex;
+
+  padding: 25px;
+}
+
+.tab-text {
+  width: 100%;
+  padding-bottom: 10px;
+
+  text-align: center;
+  color: red;
+
+  cursor: pointer;
+  transition: color 0.8s ease;
+}
+
+.tab-highlighter {
+  height: 4px;
+
+  background: red;
+  border-radius: 100px 100px 0 0;
+
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.tab-content {
+  height: calc(100% - 85px);
+}

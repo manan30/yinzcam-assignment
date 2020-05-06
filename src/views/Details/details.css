@@ -1,0 +1,17 @@
+.details-container {
+  display: flex;
+  flex-direction: column;
+
+  height: 100vh;
+  width: 100vw;
+}
+
+.details-header {
+  margin: 16px;
+
+  font-size: 2rem;
+}
+
+.details-tabs-container {
+  height: calc(100% - 70px);
+}

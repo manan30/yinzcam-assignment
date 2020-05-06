@@ -70,10 +70,9 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
-
-  span {
-    margin-left: auto;
-  }
 }
 
+.user-profile-image > span {
+  margin-left: auto;
+}
 /* //054a91 */
