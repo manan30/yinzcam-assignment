@@ -1,8 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchRepositories, fetchFollowers } from '../../api/index';
+import { fetchFollowers, fetchRepositories } from '../../api/index';
+import { RepoCard, UserCard } from '../../components/Card';
 import Tabs from '../../components/Tabs';
-import './details.css';
+import './index.css';
+
+function TabDataComponent({ type, data }) {
+  return (
+    <div className='tab-data-component'>
+      {type === 'followers'
+        ? data.map((obj) => <UserCard {...obj} />)
+        : data.map((obj) => <RepoCard {...obj} />)}
+    </div>
+  );
+}
 
 function Details() {
   const { name } = useParams();
@@ -38,11 +50,11 @@ function Details() {
           tabs={[
             {
               tag: 'Repositories',
-              component: <div style={{ background: 'blue' }} />,
+              component: <TabDataComponent type='repos' data={repositories} />,
             },
             {
               tag: 'Followers',
-              component: <div style={{ background: 'green' }} />,
+              component: <TabDataComponent type='followers' data={followers} />,
             },
           ]}
         />
@@ -50,5 +62,15 @@ function Details() {
     </div>
   );
 }
+
+TabDataComponent.propTypes = {
+  type: PropTypes.string,
+  data: PropTypes.arrayOf(PropTypes.any),
+};
+
+TabDataComponent.defaultProps = {
+  type: '',
+  data: [],
+};
 
 export default Details;
