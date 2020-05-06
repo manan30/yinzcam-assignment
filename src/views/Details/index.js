@@ -1,25 +1,37 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchFollowers, fetchRepositories } from '../../api/index';
 import { RepoCard, UserCard } from '../../components/Card';
 import Tabs from '../../components/Tabs';
+import dummyFollowers from '../../followers.json';
+import { useDetailsStore } from '../../store/DetailsStore';
 import './index.css';
 
-function TabDataComponent({ type, data }) {
+function TabDataComponent({ type }) {
+  const {
+    state: { repos, followers },
+  } = useDetailsStore();
+
   return (
-    <div className='tab-data-component'>
+    <div className='tab-content-container'>
       {type === 'followers'
-        ? data.map((obj) => <UserCard {...obj} />)
-        : data.map((obj) => <RepoCard {...obj} />)}
+        ? followers.map((obj, idx) => {
+            const key = idx;
+            return <UserCard key={key} {...obj} />;
+          })
+        : repos.map((obj, idx) => {
+            const key = idx;
+            return <RepoCard key={key} {...obj} />;
+          })}
     </div>
   );
 }
 
 function Details() {
   const { name } = useParams();
-  const [repositories, setRepositories] = useState([]);
-  const [followers, setFollowers] = useState([]);
+
+  const { dispatch } = useDetailsStore();
 
   useEffect(() => {
     (async function getDetails() {
@@ -30,17 +42,18 @@ function Details() {
         ]);
 
         if (repos instanceof Array) {
-          setRepositories(() => repos);
+          dispatch({ type: 'SET_REPOS', data: repos });
         }
 
         if (userFollowers instanceof Array) {
-          setFollowers(() => userFollowers);
+          dispatch({ type: 'SET_FOLLOWERS', data: userFollowers });
         }
       } catch (err) {
+        dispatch({ type: 'SET_FOLLOWERS', data: dummyFollowers });
         console.log(err);
       }
     })();
-  }, [name]);
+  }, [name, dispatch]);
 
   return (
     <div className='details-container'>
@@ -50,11 +63,11 @@ function Details() {
           tabs={[
             {
               tag: 'Repositories',
-              component: <TabDataComponent type='repos' data={repositories} />,
+              component: <TabDataComponent type='repos' />,
             },
             {
               tag: 'Followers',
-              component: <TabDataComponent type='followers' data={followers} />,
+              component: <TabDataComponent type='followers' />,
             },
           ]}
         />
@@ -65,12 +78,10 @@ function Details() {
 
 TabDataComponent.propTypes = {
   type: PropTypes.string,
-  data: PropTypes.arrayOf(PropTypes.any),
 };
 
 TabDataComponent.defaultProps = {
   type: '',
-  data: [],
 };
 
 export default Details;

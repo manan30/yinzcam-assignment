@@ -13,7 +13,7 @@ export async function fetchRepositories(user) {
 }
 
 export async function fetchFollowers(user) {
-  return fetch(`${BASE_URL}/users/${user}/followerss`, {
+  return fetch(`${BASE_URL}/users/${user}/followers`, {
     mode: 'cors',
   });
 }

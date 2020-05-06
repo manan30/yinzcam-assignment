@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import useActiveTabManager from '../../hooks/useActiveTabManager';
-import TabsPanel from './TabsPanel';
 import './tabs.css';
+import TabsPanel from './TabsPanel';
 
 function Tabs({ tabs }) {
   const { activeTab, handleActiveTab } = useActiveTabManager(tabs.length);
@@ -18,7 +18,11 @@ function Tabs({ tabs }) {
       />
       {activeTab.map(
         (tab, i) =>
-          tab === true && <div className='tab-content'>{tabContent[i]}</div>
+          tab === true && (
+            <div key={tab} className='tab-content'>
+              {tabContent[i]}
+            </div>
+          )
       )}
     </div>
   );

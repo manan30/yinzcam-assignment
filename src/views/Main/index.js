@@ -28,12 +28,8 @@ function Main() {
           {users.map((user, idx) => {
             const key = idx;
             return (
-              <Link to={`/${user.login}`} className='user-card'>
-                <UserCard
-                  key={key}
-                  username={user.login}
-                  avatarUrl={user.avatar_url}
-                />
+              <Link key={key} to={`/${user.login}`} className='user-card'>
+                <UserCard username={user.login} avatarUrl={user.avatar_url} />
               </Link>
             );
           })}

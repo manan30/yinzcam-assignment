@@ -3,14 +3,14 @@ import React from 'react';
 
 function UserCard({ username, avatarUrl }) {
   return (
-    <>
+    <div>
       <img
         className='user-profile-image'
         src={avatarUrl}
         alt={`${username}'s avatar`}
       />
       <span>{username}</span>
-    </>
+    </div>
   );
 }
 

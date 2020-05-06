@@ -15,12 +15,12 @@ function TabsPanel({ tabs, activeTab, handleActiveTab }) {
               key={key}
               role='button'
               tabIndex={0}
-              color={activeTab[key] ? '#30be76' : '#606060'}
+              // color={activeTab[key] ? '#30be76' : '#606060'}
               onClick={() => handleActiveTab(key)}
               onKeyUp={() => handleActiveTab(key)}>
               {tab}
             </div>
-            <div className='tab-highlighter' active={activeTab[key]} />
+            <div className='tab-highlighter' />
           </div>
         );
       })}

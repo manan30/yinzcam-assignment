@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import MainView from './views/Main';
-import DetailsView from './views/Details';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { MainView, DetailsView } from './views';
 
 function App() {
   return (
