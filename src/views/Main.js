@@ -17,22 +17,29 @@ function Main() {
     })();
   }, []);
 
-  return users.length === 0 ? (
-    <div> Loading...</div>
-  ) : (
-    <>
-      {users.map((user, idx) => {
-        const key = idx;
-        return (
-          <Link key={key} to={`/${user.login}`}>
-            <div>
-              <img src={user.avatar_url} alt={`${user.login}'s profile`} />
-              <span>{user.login}</span>
-            </div>
-          </Link>
-        );
-      })}
-    </>
+  return (
+    <div className='main-wrapper'>
+      <div className='search-container' />
+      {users.length === 0 ? (
+        <div> Loading...</div>
+      ) : (
+        <div className='infinite-scroll-container'>
+          {users.map((user, idx) => {
+            const key = idx;
+            return (
+              <Link key={key} to={`/${user.login}`} className='user-card'>
+                <img
+                  className='user-profile-image'
+                  src={user.avatar_url}
+                  alt={`${user.login}'s profile`}
+                />
+                <span>{user.login}</span>
+              </Link>
+            );
+          })}
+        </div>
+      )}
+    </div>
   );
 }
 
