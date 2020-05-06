@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function UserCard({ username, avatarUrl }) {
+function UserCard({ username, avatarURL }) {
   return (
-    <div>
+    <div className='user-card'>
       <img
         className='user-profile-image'
-        src={avatarUrl}
+        src={avatarURL}
         alt={`${username}'s avatar`}
       />
       <span>{username}</span>
@@ -16,12 +16,12 @@ function UserCard({ username, avatarUrl }) {
 
 UserCard.propTypes = {
   username: PropTypes.string,
-  avatarUrl: PropTypes.string,
+  avatarURL: PropTypes.string,
 };
 
 UserCard.defaultProps = {
   username: '',
-  avatarUrl: '',
+  avatarURL: '',
 };
 
 export default UserCard;
