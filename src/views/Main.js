@@ -24,15 +24,12 @@ function Main() {
       {users.map((user, idx) => {
         const key = idx;
         return (
-          <div
-            key={key}
-            role='link'
-            tabIndex={0}
-            onClick={() => {}}
-            onKeyUp={() => {}}>
-            <img src={user.avatar_url} alt={`${user.login}'s profile`} />
-            <span>{user.login}</span>
-          </div>
+          <Link key={key} to={`/${user.login}`}>
+            <div>
+              <img src={user.avatar_url} alt={`${user.login}'s profile`} />
+              <span>{user.login}</span>
+            </div>
+          </Link>
         );
       })}
     </>
