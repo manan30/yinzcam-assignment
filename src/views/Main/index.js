@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchUsers } from '../../api';
-import UserCard from '../../components/UserCard';
+import { UserCard } from '../../components/Card';
 
 function Main() {
   const [users, setUsers] = useState([]);
@@ -19,6 +19,7 @@ function Main() {
 
   return (
     <div className='main-wrapper'>
+      {/* Search bar from insomnia designer */}
       <div className='search-container' />
       {users.length === 0 ? (
         <div> Loading...</div>
