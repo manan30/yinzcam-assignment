@@ -1,11 +1,14 @@
 import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import MainView from './views/Main';
 
 function App() {
   return (
-    <div>
-      <MainView />
-    </div>
+    <Router>
+      <Switch>
+        <Route path='/' component={MainView} />
+      </Switch>
+    </Router>
   );
 }
 
