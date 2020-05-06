@@ -6,6 +6,14 @@ export async function fetchUsers(seed) {
   });
 }
 
-export async function fetchDetails() {
-  return '';
+export async function fetchRepositories(user) {
+  return fetch(`${BASE_URL}/users/${user}/repos`, {
+    mode: 'cors',
+  });
+}
+
+export async function fetchFollowers(user) {
+  return fetch(`${BASE_URL}/users/${user}/followerss`, {
+    mode: 'cors',
+  });
 }

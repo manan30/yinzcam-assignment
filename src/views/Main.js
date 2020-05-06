@@ -11,8 +11,8 @@ function Main() {
         const data = await (await fetchUsers(15)).json();
         console.log(data);
         setUsers(() => data);
-      } catch (e) {
-        setUsers(() => []);
+      } catch (err) {
+        console.log(err);
       }
     })();
   }, []);
