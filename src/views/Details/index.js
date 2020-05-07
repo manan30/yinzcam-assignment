@@ -34,23 +34,45 @@ function TabDataComponent({ type, name }) {
     }
   });
 
+  if (
+    (type === 'repos' && repos.error && repos.data.length === 0) ||
+    (type === 'followers' && followers.error && followers.data.length === 0)
+  ) {
+    return (
+      <div className='info-display-container'>
+        <WarningIcon
+          style={{ height: '48px', width: '48px', marginBottom: '16px' }}
+        />
+        <div>{ERROR_MESSAGE}</div>
+      </div>
+    );
+  }
+
+  if (
+    (type === 'repos' && !repos.error && !repos.fetched) ||
+    (type === 'followers' && !followers.error && !followers.fetched)
+  ) {
+    return <div className='info-display-container' />;
+  }
+
+  if (
+    (type === 'repos' &&
+      !repos.error &&
+      repos.fetched &&
+      repos.data.length === 0) ||
+    (type === 'followers' &&
+      !followers.error &&
+      followers.fetched &&
+      followers.data.length === 0)
+  ) {
+    return (
+      <div className='info-display-container'>
+        <div>This user has no {type}.</div>
+      </div>
+    );
+  }
+
   if (type === 'repos') {
-    if (repos.error && repos.data.length === 0) {
-      return (
-        <div className='error-container'>
-          <WarningIcon
-            style={{ height: '48px', width: '48px', marginBottom: '16px' }}
-          />
-          <div>{ERROR_MESSAGE}</div>
-        </div>
-      );
-    }
-
-    if (!repos.error && repos.data.length === 0) {
-      // return <Spinner />;
-      return <div> </div>;
-    }
-
     return (
       <div className='tab-content-container'>
         {repos.data.map((obj, idx) => {

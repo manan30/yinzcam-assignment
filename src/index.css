@@ -42,7 +42,7 @@ body {
   overflow-y: scroll;
 }
 
-.error-container {
+.info-display-container {
   display: flex;
   align-items: center;
   justify-content: center;

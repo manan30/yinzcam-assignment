@@ -2,8 +2,8 @@ import React, { useContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
 const initialState = {
-  repos: { data: [], error: false },
-  followers: { data: [], error: false },
+  repos: { data: [], fetched: false, error: false },
+  followers: { data: [], fetched: false, error: false },
 };
 
 const DetailsContext = React.createContext();
@@ -35,21 +35,21 @@ const detailsReducer = (state, action) => {
           issuesCount,
         })
       );
-      newState = { data, error: false };
+      newState = { data, fetched: true, error: false };
+      return { ...state, repos: newState };
+    case 'SET_REPOS_ERROR':
+      newState = { ...state.repos, error: true };
       return { ...state, repos: newState };
     case 'SET_FOLLOWERS':
       data = action.data.map(({ login: username, avatar_url: avatarURL }) => ({
         username,
         avatarURL,
       }));
-      newState = { data, error: false };
+      newState = { data, fetched: true, error: false };
       return { ...state, followers: newState };
     case 'SET_FOLLOWERS_ERROR':
       newState = { ...state.followers, error: true };
       return { ...state, followers: newState };
-    case 'SET_REPOS_ERROR':
-      newState = { ...state.repos, error: true };
-      return { ...state, repos: newState };
     default:
       console.log('No corresponding action found');
       return state;
