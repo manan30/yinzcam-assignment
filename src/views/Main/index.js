@@ -10,7 +10,12 @@ import './index.css';
 function Main() {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(false);
-  const { details, loadingElementRef } = useInfiniteScroll(users);
+  const {
+    details,
+    loadingElementRef,
+    infiniteScrollError,
+    thatsItFolks,
+  } = useInfiniteScroll(users);
 
   useEffect(() => {
     const storedData = sessionStorage.getItem('users');
@@ -68,11 +73,13 @@ function Main() {
               );
             })}
           </div>
-          <div
-            className='infinite-scroll-loading-element'
-            ref={loadingElementRef}>
-            <Spinner />
-          </div>
+          {(!infiniteScrollError || thatsItFolks) && (
+            <div
+              className='infinite-scroll-loading-element'
+              ref={loadingElementRef}>
+              <Spinner />
+            </div>
+          )}
         </div>
       )}
     </div>

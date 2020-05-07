@@ -2,14 +2,16 @@ import { useEffect, useState, useRef } from 'react';
 
 export default function useInfiniteScroll(initialItems) {
   const loadingElementRef = useRef();
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [completed, setCompleted] = useState(false);
   const [details, setDetails] = useState(initialItems);
 
   const fetching = useRef(false);
 
   const observerCallback = async (entry) => {
     if (entry[0].isIntersecting && !fetching.current) {
-      setLoading(() => true);
+      // setLoading(() => true);
       const nextUsersBatch = sessionStorage.getItem('next');
       const pervFetchedUsers = JSON.parse(sessionStorage.getItem('users'));
       if (nextUsersBatch && !fetching.current) {
@@ -32,6 +34,7 @@ export default function useInfiniteScroll(initialItems) {
             const linkHeader = response.headers.get('link');
             if (linkHeader.search('next') === -1) {
               sessionStorage.setItem('next', null);
+              setCompleted(() => true);
             } else {
               sessionStorage.setItem(
                 'next',
@@ -44,13 +47,16 @@ export default function useInfiniteScroll(initialItems) {
             }
 
             setDetails((prevState) => [...prevState, ...data]);
-          } else return;
+          } else {
+            setError(() => true);
+          }
           fetching.current = false;
         } catch (err) {
           console.log(err);
+          setError(() => true);
         }
       }
-      setLoading(() => false);
+      // setLoading(() => false);
     }
   };
 
@@ -76,5 +82,10 @@ export default function useInfiniteScroll(initialItems) {
     };
   });
 
-  return { details, loadingElementRef, loading };
+  return {
+    details,
+    loadingElementRef,
+    infiniteScrollError: error,
+    thatsItFolks: completed,
+  };
 }
