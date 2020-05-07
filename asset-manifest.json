@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/yinzcam-assignment/static/css/main.863f0874.chunk.css",
+    "main.js": "/yinzcam-assignment/static/js/main.4f93b0a7.chunk.js",
+    "main.js.map": "/yinzcam-assignment/static/js/main.4f93b0a7.chunk.js.map",
+    "runtime-main.js": "/yinzcam-assignment/static/js/runtime-main.e02d6171.js",
+    "runtime-main.js.map": "/yinzcam-assignment/static/js/runtime-main.e02d6171.js.map",
+    "static/js/2.68dc7ea5.chunk.js": "/yinzcam-assignment/static/js/2.68dc7ea5.chunk.js",
+    "static/js/2.68dc7ea5.chunk.js.map": "/yinzcam-assignment/static/js/2.68dc7ea5.chunk.js.map",
+    "static/css/3.f4c64f63.chunk.css": "/yinzcam-assignment/static/css/3.f4c64f63.chunk.css",
+    "static/js/3.6878de78.chunk.js": "/yinzcam-assignment/static/js/3.6878de78.chunk.js",
+    "static/js/3.6878de78.chunk.js.map": "/yinzcam-assignment/static/js/3.6878de78.chunk.js.map",
+    "static/css/4.5b1b9b4f.chunk.css": "/yinzcam-assignment/static/css/4.5b1b9b4f.chunk.css",
+    "static/js/4.d50a77b1.chunk.js": "/yinzcam-assignment/static/js/4.d50a77b1.chunk.js",
+    "static/js/4.d50a77b1.chunk.js.map": "/yinzcam-assignment/static/js/4.d50a77b1.chunk.js.map",
+    "static/js/5.e30d78d6.chunk.js": "/yinzcam-assignment/static/js/5.e30d78d6.chunk.js",
+    "static/js/5.e30d78d6.chunk.js.map": "/yinzcam-assignment/static/js/5.e30d78d6.chunk.js.map",
+    "index.html": "/yinzcam-assignment/index.html",
+    "precache-manifest.9d3572cf2a3019fb7d5302eb29c5051e.js": "/yinzcam-assignment/precache-manifest.9d3572cf2a3019fb7d5302eb29c5051e.js",
+    "service-worker.js": "/yinzcam-assignment/service-worker.js",
+    "static/css/3.f4c64f63.chunk.css.map": "/yinzcam-assignment/static/css/3.f4c64f63.chunk.css.map",
+    "static/css/4.5b1b9b4f.chunk.css.map": "/yinzcam-assignment/static/css/4.5b1b9b4f.chunk.css.map",
+    "static/css/main.863f0874.chunk.css.map": "/yinzcam-assignment/static/css/main.863f0874.chunk.css.map",
+    "static/js/2.68dc7ea5.chunk.js.LICENSE.txt": "/yinzcam-assignment/static/js/2.68dc7ea5.chunk.js.LICENSE.txt",
+    "static/media/back-button.3fa8ebef.svg": "/yinzcam-assignment/static/media/back-button.3fa8ebef.svg",
+    "static/media/issue-opened.565408c2.svg": "/yinzcam-assignment/static/media/issue-opened.565408c2.svg",
+    "static/media/repo-forked.44b4d2b9.svg": "/yinzcam-assignment/static/media/repo-forked.44b4d2b9.svg",
+    "static/media/star.c1d45b47.svg": "/yinzcam-assignment/static/media/star.c1d45b47.svg",
+    "static/media/warning.4286a76d.svg": "/yinzcam-assignment/static/media/warning.4286a76d.svg",
+    "static/media/watch.ab5c8e01.svg": "/yinzcam-assignment/static/media/watch.ab5c8e01.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e02d6171.js",
+    "static/js/2.68dc7ea5.chunk.js",
+    "static/css/main.863f0874.chunk.css",
+    "static/js/main.4f93b0a7.chunk.js"
+  ]
+}
