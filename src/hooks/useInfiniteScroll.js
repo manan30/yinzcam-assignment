@@ -20,7 +20,12 @@ export default function useInfiniteScroll(initialItems) {
           const response = await fetch(nextUsersBatch, { mode: 'cors' });
 
           if (response.ok) {
-            const data = await response.json();
+            const data = (await response.json()).map(
+              ({ login: username, avatar_url: avatarURL }) => ({
+                username,
+                avatarURL,
+              })
+            );
 
             if (pervFetchedUsers) {
               sessionStorage.setItem(
