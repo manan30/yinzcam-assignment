@@ -1,5 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ReactComponent as ForkIcon } from '../../assets/svg/repo-forked.svg';
+import { ReactComponent as StarIcon } from '../../assets/svg/star.svg';
+import { ReactComponent as WatchIcon } from '../../assets/svg/watch.svg';
+import { ReactComponent as IssueIcon } from '../../assets/svg/issue-opened.svg';
+import useCSSVariables from '../../hooks/useCSSVariables';
 
 function RepoCard({
   name,
@@ -11,18 +16,53 @@ function RepoCard({
   watchersCount,
   issuesCount,
 }) {
+  const { elementRef } = useCSSVariables();
+
   return (
-    <div>
-      <a href={htmlURL} target='blank'>
+    <div className='repos-card'>
+      <a href={htmlURL} target='blank' className=''>
         {name}
       </a>
-      <div>{description}</div>
-      <div>
-        <div>{language}</div>
-        <div>{forksCount}</div>
-        <div>{stargazersCount}</div>
-        <div>{watchersCount}</div>
-        <div>{issuesCount}</div>
+      <div className='repos-card-description'>{description}</div>
+      <div className='flex-container'>
+        {language && (
+          <div
+            ref={elementRef}
+            style={{ display: 'flex', alignItems: 'center', flex: 'auto 2 2' }}>
+            <div className='language-color' />
+            <div className='counts-text'>{language}</div>
+          </div>
+        )}
+
+        <div style={{ display: 'flex' }}>
+          {forksCount > 0 && (
+            <div className='flex-container' style={{ marginRight: '10px' }}>
+              <ForkIcon className='svg' />
+              <div className='counts-text'>{forksCount}</div>
+            </div>
+          )}
+
+          {stargazersCount > 0 && (
+            <div className='flex-container' style={{ marginRight: '10px' }}>
+              <StarIcon className='svg' />
+              <div className='counts-text'>{stargazersCount}</div>
+            </div>
+          )}
+
+          {watchersCount > 0 && (
+            <div className='flex-container' style={{ marginRight: '10px' }}>
+              <WatchIcon className='svg' />
+              <div className='counts-text'>{watchersCount}</div>
+            </div>
+          )}
+
+          {issuesCount > 0 && (
+            <div className='flex-container'>
+              <IssueIcon className='svg' />
+              <div className='counts-text'>{issuesCount}</div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

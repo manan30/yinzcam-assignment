@@ -26,3 +26,69 @@
 .user-profile-image > span {
   margin-left: auto;
 }
+
+.repos-card {
+  display: flex;
+  flex-direction: column;
+
+  height: 128px;
+  padding: 16px 24px;
+
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.2);
+}
+
+.repos-card-title {
+  flex: auto 1 1;
+
+  font-size: 16px;
+}
+
+.repos-card-description {
+  flex: auto 2 2;
+
+  height: 36px;
+  margin: 16px 0;
+
+  font-size: 14px;
+
+  overflow: hidden;
+}
+
+.flex-container {
+  display: flex;
+  flex: auto 1 1;
+  align-items: center;
+}
+
+.language-color {
+  --javascript: #f6e27f;
+  --python: #0b3954;
+  --ruby: #ff6663;
+  --java: #69995d;
+  --cplusplus: #3c1642;
+  --c: #28666e;
+  --swift: #da4167;
+  --typescript: #104911;
+  --go: #9dc4b5;
+  --other: #24272b;
+
+  display: inline-block;
+
+  height: 10px;
+  width: 10px;
+  margin-right: 10px;
+
+  border-radius: 50%;
+}
+
+.svg {
+  height: 12px;
+  width: 12px;
+  margin-right: 4px;
+}
+
+.counts-text {
+  font-size: 12px;
+}
