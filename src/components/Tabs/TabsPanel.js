@@ -11,7 +11,9 @@ function TabsPanel({ tabs, activeTab, handleActiveTab }) {
         return (
           <div key={key} style={{ width }}>
             <div
-              className='tab-text'
+              className={
+                activeTab[key] ? 'tab-text-active' : 'tab-text-inactive'
+              }
               key={key}
               role='button'
               tabIndex={0}
@@ -20,7 +22,13 @@ function TabsPanel({ tabs, activeTab, handleActiveTab }) {
               onKeyUp={() => handleActiveTab(key)}>
               {tab}
             </div>
-            <div className='tab-highlighter' />
+            <div
+              className={
+                activeTab[key]
+                  ? 'tab-highlighter-active'
+                  : 'tab-highlighter-inactive'
+              }
+            />
           </div>
         );
       })}
