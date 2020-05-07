@@ -17,35 +17,6 @@ a {
   text-decoration: none;
 }
 
-.main-wrapper {
-  display: flex;
-  flex-direction: column;
-
-  height: calc(100% - 20px);
-  width: calc(100% - 40px);
-  margin: 20px 20px 0 20px;
-}
-
-.search-container {
-  height: 32px;
-  width: calc(100% - 34px);
-  padding: 16px;
-  margin-bottom: 20px;
-
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 2px 2px 2px #9cadce;
-}
-
-.infinite-scroll-container {
-  flex: auto 0 0;
-
-  height: calc(100vh - 104px);
-  width: 100%;
-
-  overflow-y: scroll;
-}
-
 .info-display-container {
   display: flex;
   align-items: center;

@@ -1,38 +1,74 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchUsers } from '../../api';
 import { UserCard } from '../../components/Card';
+import Spinner from '../../components/Spinner';
+import useInfiniteScroll from '../../hooks/useInfiniteScroll';
+import './index.css';
 
 function Main() {
   const [users, setUsers] = useState([]);
+  const { details, loadingElementRef } = useInfiniteScroll(users);
 
   useEffect(() => {
-    (async function getUsers() {
-      try {
-        const data = await (await fetchUsers(15)).json();
-        setUsers(() => data);
-      } catch (err) {
-        console.log(err);
-      }
-    })();
+    const storedData = sessionStorage.getItem('users');
+    if (!storedData) {
+      (async function getUsers() {
+        try {
+          const response = await fetchUsers(15);
+
+          if (response.ok) {
+            const data = await response.json();
+            sessionStorage.setItem('users', JSON.stringify(data));
+            sessionStorage.setItem(
+              'next',
+              response.headers
+                .get('link')
+                .split(';')[0]
+                .substring(1)
+                .slice(0, -1)
+            );
+            setUsers(() => data);
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      })();
+    } else {
+      setUsers(() => JSON.parse(storedData));
+    }
   }, []);
 
   return (
     <div className='main-wrapper'>
       {/* Search bar from insomnia designer */}
       <div className='search-container' />
-      {users.length === 0 ? (
-        <div> Loading...</div>
+      {details.length === 0 ? (
+        <div className='info-display-container'>
+          <Spinner />
+        </div>
       ) : (
         <div className='infinite-scroll-container'>
-          {users.map((user, idx) => {
-            const key = idx;
-            return (
-              <Link key={key} to={`/${user.login}`}>
-                <UserCard username={user.login} avatarURL={user.avatar_url} />
-              </Link>
-            );
-          })}
+          <div>
+            {details.map((user, idx) => {
+              const key = idx;
+              return (
+                <Link key={key} to={`/${user.login}`}>
+                  <div className='user-card-main'>
+                    <UserCard
+                      username={user.login}
+                      avatarURL={user.avatar_url}
+                    />
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+          <div
+            className='infinite-scroll-loading-element'
+            ref={loadingElementRef}>
+            <Spinner />
+          </div>
         </div>
       )}
     </div>

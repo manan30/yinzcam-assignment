@@ -10,9 +10,3 @@ export const fetchReposURL = (user) => `${BASE_URL}/users/${user}/repos`;
 
 export const fetchFollowersURL = (user) =>
   `${BASE_URL}/users/${user}/followers`;
-
-// export async function fetchFollowers(user) {
-//   return fetch(`${BASE_URL}/users/${user}/followers`, {
-//     mode: 'cors',
-//   });
-// }
