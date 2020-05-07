@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-function Spinner({ primaryColor, secondaryColor, ternaryColor }) {
+function Spinner() {
   return (
     <svg
       version='1.1'
@@ -57,17 +56,5 @@ function Spinner({ primaryColor, secondaryColor, ternaryColor }) {
     </svg>
   );
 }
-
-Spinner.propTypes = {
-  primaryColor: PropTypes.string,
-  secondaryColor: PropTypes.string,
-  ternaryColor: PropTypes.string,
-};
-
-Spinner.defaultProps = {
-  primaryColor: '#ffffff',
-  secondaryColor: '#ffffff',
-  ternaryColor: '#ffffff',
-};
 
 export default Spinner;

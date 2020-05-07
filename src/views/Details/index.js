@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { fetchFollowersURL, fetchReposURL } from '../../api/index';
 import { ReactComponent as WarningIcon } from '../../assets/svg/warning.svg';
 import { RepoCard, UserCard } from '../../components/Card';
 import Tabs from '../../components/Tabs';
 import useFetch from '../../hooks/useFetch';
 import { useDetailsStore } from '../../store/DetailsStore';
-import { ERROR_MESSAGE } from '../../utils/Constants';
+import { ERROR_MESSAGE, GITHUB_URL } from '../../utils/Constants';
 import './index.css';
 import Spinner from '../../components/Spinner';
+import { ReactComponent as BackButton } from '../../assets/svg/back-button.svg';
 
 function TabDataComponent({ type, name }) {
   const {
@@ -100,10 +101,23 @@ function TabDataComponent({ type, name }) {
 
 function Details() {
   const { name } = useParams();
+  const history = useHistory();
 
   return (
     <div className='details-container'>
-      <h2 className='details-header'>User details for {name} </h2>
+      <div className='details-header'>
+        <BackButton
+          onClick={() => {
+            history.goBack();
+          }}
+        />
+        <a
+          style={{ marginLeft: 'auto' }}
+          href={GITHUB_URL(name)}
+          target='blank'>
+          {name}&apos;s GitHub Profile{' '}
+        </a>
+      </div>
       <div className='details-tabs-container'>
         <Tabs
           tabs={[

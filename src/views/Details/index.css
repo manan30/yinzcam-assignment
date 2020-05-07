@@ -8,12 +8,25 @@
 }
 
 .details-header {
-  font-size: 2rem;
+  display: flex;
+  align-items: center;
+
+  height: 32px;
   margin: 0 0 16px 0;
+
+  font-size: 1rem;
+}
+
+.details-header > svg {
+  height: inherit;
+
+  fill: #60646b;
+
+  cursor: pointer;
 }
 
 .details-tabs-container {
-  height: calc(100% - 2rem - 16px);
+  height: calc(100% - 48px);
   width: 100%;
 }
 
