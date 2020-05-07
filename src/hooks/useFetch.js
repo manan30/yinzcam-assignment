@@ -7,7 +7,8 @@ export default function useFetch(fetchURL, type) {
   const { state } = useDetailsStore();
 
   useEffect(() => {
-    if (state[type].error || !state[type].fetched) {
+    if (!state[type].fetched) {
+      console.log('fetching');
       (async function callback() {
         try {
           const fetchDataRes = await fetch(fetchURL, { mode: 'cors' });

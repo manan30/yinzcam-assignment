@@ -35,10 +35,16 @@ const detailsReducer = (state, action) => {
           issuesCount,
         })
       );
-      newState = { data, fetched: true, error: false };
-      return { ...state, repos: newState };
+
+      if (!state.repos.fetched) {
+        newState = { data, fetched: true, error: false };
+        return { ...state, repos: newState };
+      }
+
+      return state;
+
     case 'SET_REPOS_ERROR':
-      newState = { ...state.repos, error: true };
+      newState = { ...state.repos, fetched: true, error: true };
       return { ...state, repos: newState };
     case 'SET_FOLLOWERS':
       data = action.data.map(({ login: username, avatar_url: avatarURL }) => ({
@@ -48,7 +54,7 @@ const detailsReducer = (state, action) => {
       newState = { data, fetched: true, error: false };
       return { ...state, followers: newState };
     case 'SET_FOLLOWERS_ERROR':
-      newState = { ...state.followers, error: true };
+      newState = { ...state.followers, fetched: true, error: true };
       return { ...state, followers: newState };
     default:
       console.log('No corresponding action found');
