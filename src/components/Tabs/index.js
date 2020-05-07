@@ -10,7 +10,7 @@ function Tabs({ tabs }) {
   const [tabContent] = useState(tabs.map((t) => t.component));
 
   return (
-    <div className='tab-layout-container'>
+    <>
       <TabsPanel
         tabs={tabPanelText}
         activeTab={activeTab}
@@ -24,7 +24,7 @@ function Tabs({ tabs }) {
             </div>
           )
       )}
-    </div>
+    </>
   );
 }
 
