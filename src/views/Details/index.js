@@ -1,17 +1,36 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchFollowers, fetchRepositories } from '../../api/index';
+import { fetchRepositories, fetchFollowers } from '../../api/index';
 import { RepoCard, UserCard } from '../../components/Card';
 import Tabs from '../../components/Tabs';
-import dummyFollowers from '../../followers.json';
 import { useDetailsStore } from '../../store/DetailsStore';
 import './index.css';
+import dummyRepos from '../../repos.json';
+import dummyFollowers from '../../followers.json';
 
-function TabDataComponent({ type }) {
+function TabDataComponent({ type, name }) {
   const {
     state: { repos, followers },
+    dispatch,
   } = useDetailsStore();
+
+  useEffect(() => {
+    if (type === 'followers' && followers.length === 0) {
+      (async function getFollower() {
+        try {
+          const userFollowers = await (await fetchFollowers(name)).json();
+
+          if (userFollowers instanceof Array) {
+            dispatch({ type: 'SET_FOLLOWERS', data: userFollowers });
+          }
+        } catch (err) {
+          dispatch({ type: 'SET_FOLLOWERS', data: dummyFollowers });
+          console.log(err);
+        }
+      })();
+    }
+  });
 
   return (
     <div className='tab-content-container'>
@@ -36,20 +55,13 @@ function Details() {
   useEffect(() => {
     (async function getDetails() {
       try {
-        const [repos, userFollowers] = await Promise.all([
-          await (await fetchRepositories(name)).json(),
-          await (await fetchFollowers(name)).json(),
-        ]);
+        const repos = await (await fetchRepositories(name)).json();
 
         if (repos instanceof Array) {
           dispatch({ type: 'SET_REPOS', data: repos });
         }
-
-        if (userFollowers instanceof Array) {
-          dispatch({ type: 'SET_FOLLOWERS', data: userFollowers });
-        }
       } catch (err) {
-        dispatch({ type: 'SET_FOLLOWERS', data: dummyFollowers });
+        dispatch({ type: 'SET_REPOS', data: dummyRepos });
         console.log(err);
       }
     })();
@@ -67,7 +79,7 @@ function Details() {
             },
             {
               tag: 'Followers',
-              component: <TabDataComponent type='followers' />,
+              component: <TabDataComponent type='followers' name={name} />,
             },
           ]}
         />
