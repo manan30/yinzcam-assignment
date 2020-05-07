@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { MainView, DetailsView } from './views';
+// import { MainView as Main, DetailsView as Details } from './views';
+import FallbackUI from './components/FallbackUI';
+
+const MainView = React.lazy(() => import('./views/Main'));
+const DetailsView = React.lazy(() => import('./views/Details'));
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path='/:name' component={DetailsView} />
-        <Route path='/' component={MainView} />
+        <Suspense fallback={<FallbackUI />}>
+          <Route path='/:name' component={DetailsView} />
+          <Route path='/' component={MainView} />
+        </Suspense>
       </Switch>
     </Router>
   );

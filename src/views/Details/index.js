@@ -8,10 +8,9 @@ import Error from '../../components/Error';
 import Spinner from '../../components/Spinner';
 import Tabs from '../../components/Tabs';
 import useFetch from '../../hooks/useFetch';
-import { useDetailsStore } from '../../store/DetailsStore';
+import { useDetailsStore, DetailsProvider } from '../../store/DetailsStore';
 import { GITHUB_URL } from '../../utils/Constants';
 import './index.css';
-
 
 function TabDataComponent({ type, name }) {
   const {
@@ -102,35 +101,37 @@ function Details() {
   const history = useHistory();
 
   return (
-    <div className='details-container'>
-      <div className='details-header'>
-        <BackButton
-          onClick={() => {
-            history.goBack();
-          }}
-        />
-        <a
-          style={{ marginLeft: 'auto' }}
-          href={GITHUB_URL(name)}
-          target='blank'>
-          {name}&apos;s GitHub Profile{' '}
-        </a>
+    <DetailsProvider>
+      <div className='details-container'>
+        <div className='details-header'>
+          <BackButton
+            onClick={() => {
+              history.goBack();
+            }}
+          />
+          <a
+            style={{ marginLeft: 'auto' }}
+            href={GITHUB_URL(name)}
+            target='blank'>
+            {name}&apos;s GitHub Profile{' '}
+          </a>
+        </div>
+        <div className='details-tabs-container'>
+          <Tabs
+            tabs={[
+              {
+                tag: 'Repositories',
+                component: <TabDataComponent type='repos' name={name} />,
+              },
+              {
+                tag: 'Followers',
+                component: <TabDataComponent type='followers' name={name} />,
+              },
+            ]}
+          />
+        </div>
       </div>
-      <div className='details-tabs-container'>
-        <Tabs
-          tabs={[
-            {
-              tag: 'Repositories',
-              component: <TabDataComponent type='repos' name={name} />,
-            },
-            {
-              tag: 'Followers',
-              component: <TabDataComponent type='followers' name={name} />,
-            },
-          ]}
-        />
-      </div>
-    </div>
+    </DetailsProvider>
   );
 }
 

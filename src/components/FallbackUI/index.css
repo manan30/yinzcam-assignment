@@ -1,0 +1,12 @@
+.fallback-ui-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.fallback-ui-container > svg {
+  height: 48px;
+  width: 48px;
+}
