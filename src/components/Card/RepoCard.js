@@ -1,9 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { ReactComponent as IssueIcon } from '../../assets/svg/issue-opened.svg';
 import { ReactComponent as ForkIcon } from '../../assets/svg/repo-forked.svg';
 import { ReactComponent as StarIcon } from '../../assets/svg/star.svg';
 import { ReactComponent as WatchIcon } from '../../assets/svg/watch.svg';
-import { ReactComponent as IssueIcon } from '../../assets/svg/issue-opened.svg';
 import useCSSVariables from '../../hooks/useCSSVariables';
 
 function RepoCard({

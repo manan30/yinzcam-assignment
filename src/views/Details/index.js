@@ -90,10 +90,12 @@ function Details() {
 
 TabDataComponent.propTypes = {
   type: PropTypes.string,
+  name: PropTypes.string,
 };
 
 TabDataComponent.defaultProps = {
   type: '',
+  name: '',
 };
 
 export default Details;
