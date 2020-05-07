@@ -1,26 +1,30 @@
 import { useEffect, useState } from 'react';
+import { useDetailsStore } from '../store/DetailsStore';
 
-export default function useFetch(fetchURL, fetchCallback) {
+export default function useFetch(fetchURL, type) {
   const [data, setData] = useState();
   const [error, setError] = useState();
+  const { state } = useDetailsStore();
 
   useEffect(() => {
-    (async function callback() {
-      try {
-        const fetchDataRes = await fetch(fetchURL, { mode: 'cors' });
+    if (state[type].error || !state[type].fetched) {
+      (async function callback() {
+        try {
+          const fetchDataRes = await fetch(fetchURL, { mode: 'cors' });
 
-        if (fetchDataRes.ok) {
-          const fetchData = await fetchDataRes.json();
-          setData(() => fetchData);
-        } else {
+          if (fetchDataRes.ok) {
+            const fetchData = await fetchDataRes.json();
+            setData(() => fetchData);
+          } else {
+            setError(() => true);
+          }
+        } catch (err) {
+          console.log(err);
           setError(() => true);
         }
-      } catch (err) {
-        console.log(err);
-        setError(() => true);
-      }
-    })();
-  }, [fetchCallback, fetchURL]);
+      })();
+    }
+  }, [fetchURL, state, type]);
 
   return { data, error };
 }

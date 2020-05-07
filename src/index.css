@@ -52,4 +52,9 @@ body {
   width: 100%;
 }
 
+.info-display-container > svg {
+  height: 48px;
+  width: 48px;
+}
+
 /* //054a91 */

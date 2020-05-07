@@ -1,38 +1,45 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchFollowers, fetchReposURL } from '../../api/index';
+import { fetchFollowersURL, fetchReposURL } from '../../api/index';
+import { ReactComponent as WarningIcon } from '../../assets/svg/warning.svg';
 import { RepoCard, UserCard } from '../../components/Card';
 import Tabs from '../../components/Tabs';
-import dummyFollowers from '../../followers.json';
 import useFetch from '../../hooks/useFetch';
 import { useDetailsStore } from '../../store/DetailsStore';
-import './index.css';
 import { ERROR_MESSAGE } from '../../utils/Constants';
-import { ReactComponent as WarningIcon } from '../../assets/svg/warning.svg';
+import './index.css';
+import Spinner from '../../components/Spinner';
 
 function TabDataComponent({ type, name }) {
   const {
     state: { repos, followers },
     dispatch,
   } = useDetailsStore();
+  const { data, error } = useFetch(
+    type === 'repos' ? fetchReposURL(name) : fetchFollowersURL(name),
+    type
+  );
 
   useEffect(() => {
-    if (type === 'followers' && followers.length === 0) {
-      (async function getFollower() {
-        try {
-          const userFollowers = await (await fetchFollowers(name)).json();
+    if (type === 'repos') {
+      if (data) {
+        dispatch({ type: 'SET_REPOS', data });
+      }
 
-          if (userFollowers instanceof Array) {
-            dispatch({ type: 'SET_FOLLOWERS', data: userFollowers });
-          }
-        } catch (err) {
-          dispatch({ type: 'SET_FOLLOWERS', data: dummyFollowers });
-          console.log(err);
-        }
-      })();
+      if (error) {
+        dispatch({ type: 'SET_REPOS_ERROR' });
+      }
+    } else {
+      if (data) {
+        dispatch({ type: 'SET_FOLLOWERS', data });
+      }
+
+      if (error) {
+        dispatch({ type: 'SET_FOLLOWERS_ERROR' });
+      }
     }
-  });
+  }, [dispatch, data, error, name, type]);
 
   if (
     (type === 'repos' && repos.error && repos.data.length === 0) ||
@@ -52,7 +59,11 @@ function TabDataComponent({ type, name }) {
     (type === 'repos' && !repos.error && !repos.fetched) ||
     (type === 'followers' && !followers.error && !followers.fetched)
   ) {
-    return <div className='info-display-container' />;
+    return (
+      <div className='info-display-container'>
+        <Spinner />
+      </div>
+    );
   }
 
   if (
@@ -72,34 +83,23 @@ function TabDataComponent({ type, name }) {
     );
   }
 
-  if (type === 'repos') {
-    return (
-      <div className='tab-content-container'>
-        {repos.data.map((obj, idx) => {
-          const key = idx;
-          return <RepoCard key={key} {...obj} />;
-        })}
-      </div>
-    );
-  }
-
-  return <div />;
+  return (
+    <div className='tab-content-container'>
+      {type === 'repos'
+        ? repos.data.map((obj, idx) => {
+            const key = idx;
+            return <RepoCard key={key} {...obj} />;
+          })
+        : followers.data.map((obj, idx) => {
+            const key = idx;
+            return <UserCard key={key} {...obj} />;
+          })}
+    </div>
+  );
 }
 
 function Details() {
   const { name } = useParams();
-  const { dispatch } = useDetailsStore();
-  const { data, error } = useFetch(fetchReposURL(name));
-
-  useEffect(() => {
-    if (data) {
-      dispatch({ type: 'SET_REPOS', data });
-    }
-
-    if (error) {
-      dispatch({ type: 'SET_REPOS_ERROR' });
-    }
-  }, [dispatch, data, error]);
 
   return (
     <div className='details-container'>
@@ -109,7 +109,7 @@ function Details() {
           tabs={[
             {
               tag: 'Repositories',
-              component: <TabDataComponent type='repos' />,
+              component: <TabDataComponent type='repos' name={name} />,
             },
             {
               tag: 'Followers',
