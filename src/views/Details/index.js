@@ -1,16 +1,17 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { fetchFollowersURL, fetchReposURL } from '../../api/index';
-import { ReactComponent as WarningIcon } from '../../assets/svg/warning.svg';
+import { ReactComponent as BackButton } from '../../assets/svg/back-button.svg';
 import { RepoCard, UserCard } from '../../components/Card';
+import Error from '../../components/Error';
+import Spinner from '../../components/Spinner';
 import Tabs from '../../components/Tabs';
 import useFetch from '../../hooks/useFetch';
 import { useDetailsStore } from '../../store/DetailsStore';
-import { ERROR_MESSAGE, GITHUB_URL } from '../../utils/Constants';
+import { GITHUB_URL } from '../../utils/Constants';
 import './index.css';
-import Spinner from '../../components/Spinner';
-import { ReactComponent as BackButton } from '../../assets/svg/back-button.svg';
+
 
 function TabDataComponent({ type, name }) {
   const {
@@ -48,10 +49,7 @@ function TabDataComponent({ type, name }) {
   ) {
     return (
       <div className='info-display-container'>
-        <WarningIcon
-          style={{ height: '48px', width: '48px', marginBottom: '16px' }}
-        />
-        <div>{ERROR_MESSAGE}</div>
+        <Error />
       </div>
     );
   }

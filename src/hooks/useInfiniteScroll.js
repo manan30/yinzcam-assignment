@@ -5,13 +5,16 @@ export default function useInfiniteScroll(initialItems) {
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState(initialItems);
 
+  const fetching = useRef(false);
+
   const observerCallback = async (entry) => {
-    if (entry[0].isIntersecting) {
+    if (entry[0].isIntersecting && !fetching.current) {
       setLoading(() => true);
       const nextUsersBatch = sessionStorage.getItem('next');
-      const pervFetchedUsers = sessionStorage.getItem('users');
-      if (nextUsersBatch) {
+      const pervFetchedUsers = JSON.parse(sessionStorage.getItem('users'));
+      if (nextUsersBatch && !fetching.current) {
         try {
+          fetching.current = true;
           const response = await fetch(nextUsersBatch, { mode: 'cors' });
 
           if (response.ok) {
@@ -26,17 +29,23 @@ export default function useInfiniteScroll(initialItems) {
               sessionStorage.setItem('users', JSON.stringify(data));
             }
 
-            sessionStorage.setItem(
-              'next',
-              response.headers
-                .get('link')
-                .split(';')[0]
-                .substring(1)
-                .slice(0, -1)
-            );
+            const linkHeader = response.headers.get('link');
+            if (linkHeader.search('next') === -1) {
+              sessionStorage.setItem('next', null);
+            } else {
+              sessionStorage.setItem(
+                'next',
+                response.headers
+                  .get('link')
+                  .split(';')[0]
+                  .substring(1)
+                  .slice(0, -1)
+              );
+            }
 
             setDetails((prevState) => [...prevState, ...data]);
-          }
+          } else return;
+          fetching.current = false;
         } catch (err) {
           console.log(err);
         }

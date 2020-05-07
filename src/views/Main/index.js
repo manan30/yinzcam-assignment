@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 import { fetchUsers } from '../../api';
 import { UserCard } from '../../components/Card';
 import Spinner from '../../components/Spinner';
+import Error from '../../components/Error';
 import useInfiniteScroll from '../../hooks/useInfiniteScroll';
 import './index.css';
 
 function Main() {
   const [users, setUsers] = useState([]);
+  const [error, setError] = useState(false);
   const { details, loadingElementRef } = useInfiniteScroll(users);
 
   useEffect(() => {
@@ -20,18 +22,20 @@ function Main() {
           if (response.ok) {
             const data = await response.json();
             sessionStorage.setItem('users', JSON.stringify(data));
-            sessionStorage.setItem(
-              'next',
-              response.headers
-                .get('link')
-                .split(';')[0]
-                .substring(1)
-                .slice(0, -1)
-            );
+            const linkHeader = response.headers.get('link');
+            if (linkHeader.search('next') !== -1) {
+              sessionStorage.setItem(
+                'next',
+                linkHeader.split(';')[0].substring(1).slice(0, -1)
+              );
+            }
             setUsers(() => data);
+          } else {
+            setError(() => true);
           }
         } catch (err) {
           console.log(err);
+          setError(() => true);
         }
       })();
     } else {
@@ -43,9 +47,9 @@ function Main() {
     <div className='main-wrapper'>
       {/* Search bar from insomnia designer */}
       <div className='search-container' />
-      {details.length === 0 ? (
+      {details.length === 0 || error ? (
         <div className='info-display-container'>
-          <Spinner />
+          {error ? <Error /> : <Spinner />}
         </div>
       ) : (
         <div className='infinite-scroll-container'>
