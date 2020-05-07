@@ -1,12 +1,17 @@
 import React, { useContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
-const initialState = { repos: [], followers: [] };
+const initialState = {
+  repos: { data: [], error: false },
+  followers: { data: [], error: false },
+};
 
 const DetailsContext = React.createContext();
 
 const detailsReducer = (state, action) => {
   let data;
+  let newState;
+
   switch (action.type) {
     case 'SET_REPOS':
       data = action.data.map(
@@ -30,13 +35,21 @@ const detailsReducer = (state, action) => {
           issuesCount,
         })
       );
-      return { ...state, repos: data };
+      newState = { data, error: false };
+      return { ...state, repos: newState };
     case 'SET_FOLLOWERS':
       data = action.data.map(({ login: username, avatar_url: avatarURL }) => ({
         username,
         avatarURL,
       }));
-      return { ...state, followers: data };
+      newState = { data, error: false };
+      return { ...state, followers: newState };
+    case 'SET_FOLLOWERS_ERROR':
+      newState = { ...state.followers, error: true };
+      return { ...state, followers: newState };
+    case 'SET_REPOS_ERROR':
+      newState = { ...state.repos, error: true };
+      return { ...state, repos: newState };
     default:
       console.log('No corresponding action found');
       return state;

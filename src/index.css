@@ -42,4 +42,14 @@ body {
   overflow-y: scroll;
 }
 
+.error-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  height: 100%;
+  width: 100%;
+}
+
 /* //054a91 */

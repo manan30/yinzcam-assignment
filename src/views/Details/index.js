@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { fetchRepositories, fetchFollowers } from '../../api/index';
+import { fetchFollowers, fetchReposURL } from '../../api/index';
 import { RepoCard, UserCard } from '../../components/Card';
 import Tabs from '../../components/Tabs';
+import dummyFollowers from '../../followers.json';
+import useFetch from '../../hooks/useFetch';
 import { useDetailsStore } from '../../store/DetailsStore';
 import './index.css';
-import dummyRepos from '../../repos.json';
-import dummyFollowers from '../../followers.json';
+import { ERROR_MESSAGE } from '../../utils/Constants';
+import { ReactComponent as WarningIcon } from '../../assets/svg/warning.svg';
 
 function TabDataComponent({ type, name }) {
   const {
@@ -32,40 +34,50 @@ function TabDataComponent({ type, name }) {
     }
   });
 
-  return (
-    <div className='tab-content-container'>
-      {type === 'followers'
-        ? followers.map((obj, idx) => {
-            const key = idx;
-            return <UserCard key={key} {...obj} />;
-          })
-        : repos.map((obj, idx) => {
-            const key = idx;
-            return <RepoCard key={key} {...obj} />;
-          })}
-    </div>
-  );
+  if (type === 'repos') {
+    if (repos.error && repos.data.length === 0) {
+      return (
+        <div className='error-container'>
+          <WarningIcon
+            style={{ height: '48px', width: '48px', marginBottom: '16px' }}
+          />
+          <div>{ERROR_MESSAGE}</div>
+        </div>
+      );
+    }
+
+    if (!repos.error && repos.data.length === 0) {
+      // return <Spinner />;
+      return <div> </div>;
+    }
+
+    return (
+      <div className='tab-content-container'>
+        {repos.data.map((obj, idx) => {
+          const key = idx;
+          return <RepoCard key={key} {...obj} />;
+        })}
+      </div>
+    );
+  }
+
+  return <div />;
 }
 
 function Details() {
   const { name } = useParams();
-
   const { dispatch } = useDetailsStore();
+  const { data, error } = useFetch(fetchReposURL(name));
 
   useEffect(() => {
-    (async function getDetails() {
-      try {
-        const repos = await (await fetchRepositories(name)).json();
+    if (data) {
+      dispatch({ type: 'SET_REPOS', data });
+    }
 
-        if (repos instanceof Array) {
-          dispatch({ type: 'SET_REPOS', data: repos });
-        }
-      } catch (err) {
-        dispatch({ type: 'SET_REPOS', data: dummyRepos });
-        console.log(err);
-      }
-    })();
-  }, [name, dispatch]);
+    if (error) {
+      dispatch({ type: 'SET_REPOS_ERROR' });
+    }
+  }, [dispatch, data, error]);
 
   return (
     <div className='details-container'>

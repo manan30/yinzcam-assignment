@@ -6,11 +6,13 @@ export async function fetchUsers(seed) {
   });
 }
 
-export async function fetchRepositories(user) {
-  return fetch(`${BASE_URL}/users/${user}/repos`, {
-    mode: 'cors',
-  });
-}
+// export async function fetchRepositories(user) {
+//   return fetch(`${BASE_URL}/users/${user}/repos`, {
+//     mode: 'cors',
+//   });
+// }
+
+export const fetchReposURL = (user) => `${BASE_URL}/users/${user}/repos`;
 
 export async function fetchFollowers(user) {
   return fetch(`${BASE_URL}/users/${user}/followers`, {
