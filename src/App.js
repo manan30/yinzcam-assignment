@@ -11,8 +11,8 @@ function App() {
     <Router>
       <Switch>
         <Suspense fallback={<FallbackUI />}>
-          <Route path='/:name' component={DetailsView} />
-          <Route path='/' component={MainView} />
+          <Route path='/:name' exact component={DetailsView} />
+          <Route path='/' exact component={MainView} />
         </Suspense>
       </Switch>
     </Router>
