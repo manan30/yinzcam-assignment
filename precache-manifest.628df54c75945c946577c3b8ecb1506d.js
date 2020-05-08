@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4787787b9d3eb3f69d01d4804f7e745d",
+    "revision": "c2f5b95717558783511d6742f2734184",
     "url": "/yinzcam-assignment/index.html"
   },
   {
@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/yinzcam-assignment/static/css/4.cc6eb685.chunk.css"
   },
   {
-    "revision": "73c0aa1e57ea6e1dde2d",
+    "revision": "9b2eadd1b0b30ccaeaef",
     "url": "/yinzcam-assignment/static/css/main.4b00e1ad.chunk.css"
   },
   {
@@ -36,8 +36,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/yinzcam-assignment/static/js/5.e30d78d6.chunk.js"
   },
   {
-    "revision": "73c0aa1e57ea6e1dde2d",
-    "url": "/yinzcam-assignment/static/js/main.d4a7e144.chunk.js"
+    "revision": "9b2eadd1b0b30ccaeaef",
+    "url": "/yinzcam-assignment/static/js/main.6cc9a879.chunk.js"
   },
   {
     "revision": "903288a1748edad53516",
