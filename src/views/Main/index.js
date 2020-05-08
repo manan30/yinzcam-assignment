@@ -62,12 +62,11 @@ function Main() {
 
   return (
     <div className='main-wrapper'>
-      {/* Search bar from insomnia designer */}
       <div className='search-container'>
         <input
           className='search-input'
           value={searchTerm}
-          placeholder='Search for github users'
+          placeholder='Search for GitHub users'
           type='text'
           onChange={(e) => search(e.target.value)}
           onFocus={() => setIsSearching(() => true)}

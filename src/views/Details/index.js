@@ -8,7 +8,7 @@ import Error from '../../components/Error';
 import Spinner from '../../components/Spinner';
 import Tabs from '../../components/Tabs';
 import useFetch from '../../hooks/useFetch';
-import { useDetailsStore, DetailsProvider } from '../../store/DetailsStore';
+import { DetailsProvider, useDetailsStore } from '../../store/DetailsStore';
 import { GITHUB_URL } from '../../utils/Constants';
 import './index.css';
 

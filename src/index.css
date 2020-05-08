@@ -1,3 +1,9 @@
+* {
+  font-family: 'Balsamiq Sans', Arial, Helvetica, sans-serif;
+
+  -webkit-overflow-scrolling: touch;
+}
+
 html,
 body {
   height: 100%;
