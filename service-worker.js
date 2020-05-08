@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/yinzcam-assignment/precache-manifest.9d3572cf2a3019fb7d5302eb29c5051e.js"
+  "/yinzcam-assignment/precache-manifest.6a63d35845f0b9e56bc09ec8dcbe6b51.js"
 );
 
 self.addEventListener('message', (event) => {
