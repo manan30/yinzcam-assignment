@@ -17,6 +17,14 @@ a {
   text-decoration: none;
 }
 
+#root {
+  position: absolute;
+  top: 0;
+
+  height: inherit;
+  width: inherit;
+}
+
 .info-display-container {
   display: flex;
   align-items: center;
