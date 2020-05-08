@@ -8,7 +8,6 @@ export default function useFetch(fetchURL, type) {
 
   useEffect(() => {
     if (!state[type].fetched) {
-      console.log('fetching');
       (async function callback() {
         try {
           const fetchDataRes = await fetch(fetchURL, { mode: 'cors' });
@@ -20,7 +19,6 @@ export default function useFetch(fetchURL, type) {
             setError(() => true);
           }
         } catch (err) {
-          console.log(err);
           setError(() => true);
         }
       })();

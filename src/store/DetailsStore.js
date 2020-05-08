@@ -57,7 +57,6 @@ const detailsReducer = (state, action) => {
       newState = { ...state.followers, fetched: true, error: true };
       return { ...state, followers: newState };
     default:
-      console.log('No corresponding action found');
       return state;
   }
 };

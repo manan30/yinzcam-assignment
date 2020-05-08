@@ -57,7 +57,6 @@ export default function useInfiniteScroll(initialItems) {
           }
           fetching.current = false;
         } catch (err) {
-          console.log(err);
           setError(() => true);
         }
       }

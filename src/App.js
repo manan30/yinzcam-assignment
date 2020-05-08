@@ -6,7 +6,6 @@ const MainView = React.lazy(() => import('./views/Main'));
 const DetailsView = React.lazy(() => import('./views/Details'));
 
 function App() {
-  console.log(process.env.PUBLIC_URL);
   return (
     <Router basename={process.env.PUBLIC_URL}>
       <Switch>
